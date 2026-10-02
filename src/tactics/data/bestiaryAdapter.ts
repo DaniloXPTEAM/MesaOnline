@@ -1,0 +1,242 @@
+import threatsJson from "../../../ficha-modernrpg/t20/vtt/ameacas.json";
+import campaignThreatsJson from "../../../ficha-modernrpg/t20/vtt/ameacas_campanhas.json";
+import spellsJson from "../../../ficha-modernrpg/t20/vtt/magias.json";
+import type { GameAction, SaveType, ThreatTemplate } from "../../game/types";
+import { parseSize } from "../../game/tokenSize";
+import {
+  actionKindFromExecution,
+  formulasIn,
+  inferActionFields,
+  normalizeRuleText,
+  numberBonus,
+  parseRangeM,
+  parseSave,
+} from "../interpretation/modernRpgRules";
+import { threatImage } from "./threatImages";
+
+export interface CanonicalThreat {
+  id: string;
+  nome: string;
+  tipo?: string;
+  nd?: string;
+  iniciativa?: string;
+  defesa?: number;
+  fort?: string;
+  ref?: string;
+  von?: string;
+  pv?: number;
+  pm?: number;
+  deslocamento?: string;
+  ataques?: Array<{ nome: string; tipo?: string; bonus?: string; dano?: string; desc?: string }>;
+  habilidades?: Array<{ nome: string; tipo?: string; desc?: string }>;
+  atributos?: Partial<Record<"for" | "des" | "con" | "int" | "sab" | "car", number>>;
+  pericias?: Array<{ nome: string; valor?: string }>;
+  tesouro?: string;
+  imagem?: string;
+  custom?: boolean;
+  hidden?: boolean;
+  customPortrait?: string;
+}
+
+interface CanonicalSpell {
+  id: string;
+  nome: string;
+  circulo: number;
+  tipo?: string;
+  escola?: string;
+  execucao?: string;
+  alcance?: string;
+  alvo?: string;
+  resistencia?: string;
+  custo?: number;
+  descricao?: string;
+}
+
+const spellCatalog = spellsJson as CanonicalSpell[];
+
+function critical(text: string) {
+  return {
+    margin: Number(text.match(/(?:^|[,;(\s])(1[5-9]|20)(?=\s*[,/x)]|\s*$)/)?.[1]) || 20,
+    multiplier: Number(text.match(/x\s*(\d+)/i)?.[1]) || 2,
+  };
+}
+
+function attackRepeats(name: string) {
+  if (/\b(?:duas|dois)\b/i.test(name)) return 2;
+  if (/\btr[eê]s\b/i.test(name)) return 3;
+  const explicit = Number(name.match(/^\s*(\d+)\b/)?.[1]);
+  return explicit > 1 ? explicit : 1;
+}
+
+function actionForAttack(threat: CanonicalThreat, attack: NonNullable<CanonicalThreat["ataques"]>[number], index: number): GameAction {
+  const ranged = /distância|distancia|arremesso|disparo/i.test(attack.tipo || "");
+  const formulas = formulasIn(`${attack.dano || ""} ${attack.desc || ""}`);
+  const crit = critical(`${attack.dano || ""} ${attack.desc || ""}`);
+  return {
+    id: `threat:${threat.id}:attack:${index}`,
+    source: "threat",
+    sourceId: threat.id,
+    name: attack.nome || `Ataque ${index + 1}`,
+    category: "weapon",
+    kind: "standard",
+    effect: "damage",
+    target: "enemy",
+    description: [attack.tipo, attack.dano, attack.desc].filter(Boolean).join(" · "),
+    pmCost: 0,
+    rangeM: parseRangeM(`${attack.tipo || ""} ${attack.desc || ""}`, ranged ? 9 : 1.5),
+    attackSkill: ranged ? "pontaria" : "luta",
+    attackBonus: numberBonus(attack.bonus),
+    damage: formulas[0] || "1d6",
+    extraDamage: formulas[1],
+    repeats: attackRepeats(attack.nome),
+    crit: crit.margin,
+    critMultiplier: crit.multiplier,
+    color: /fogo|ácido|acido|eletric|trevas|tormenta/i.test(`${attack.dano} ${attack.desc}`) ? "blood" : "steel",
+  };
+}
+
+function actionForAbility(threat: CanonicalThreat, ability: NonNullable<CanonicalThreat["habilidades"]>[number], index: number): GameAction | null {
+  const text = `${ability.nome}. ${ability.tipo || ""}. ${ability.desc || ""}`;
+  const formulas = formulasIn(text);
+  const active = /padr[aã]o|movimento|completa|livre|reação|reacao|gasta|\bPM\b/i.test(text);
+  if (!active && !formulas.length) return null;
+  const healing = /cura|recupera|regenera|pv tempor/i.test(text) && !/dano/i.test(text);
+  const inferred = inferActionFields(text);
+  const self = /pessoal|si mesmo|em si/i.test(text);
+  return {
+    id: `threat:${threat.id}:ability:${index}`,
+    source: "threat",
+    sourceId: threat.id,
+    name: ability.nome,
+    category: /magia|mágica|magica/i.test(text) ? "spell" : "power",
+    kind: actionKindFromExecution(ability.tipo),
+    effect: healing ? "heal" : formulas.length ? "damage" : "text",
+    target: self ? "self" : inferred.areaM ? "area" : healing ? "ally" : "enemy",
+    description: ability.desc || ability.tipo || "Habilidade de ameaça.",
+    pmCost: Number(text.match(/(?:gasta|custo)\s*(\d+)\s*PM/i)?.[1]) || 0,
+    rangeM: parseRangeM(text, self ? 0 : 9),
+    damage: healing ? undefined : formulas[0],
+    healing: healing ? formulas[0] || "1d8" : undefined,
+    ...inferred,
+    color: /fogo|chama|lava/i.test(text) ? "fire" : healing ? "gold" : /tormenta|trevas|sangue/i.test(text) ? "blood" : "arcane",
+  };
+}
+
+/** Nomes de magia já normalizados (sem acento, minúsculos), calculados uma vez: antes eram refeitos para cada ameaça × cada magia no carregamento. */
+let spellNameIndex: Array<{ spell: (typeof spellCatalog)[number]; key: string }> | undefined;
+function spellNames() {
+  spellNameIndex ??= spellCatalog.filter((spell) => spell.nome.length >= 4).map((spell) => ({ spell, key: normalizeRuleText(spell.nome) }));
+  return spellNameIndex;
+}
+
+function mentionedSpellActions(threat: CanonicalThreat): GameAction[] {
+  const source = JSON.stringify(threat);
+  const normalized = normalizeRuleText(source);
+  return spellNames()
+    .filter(({ key }) => normalized.includes(key))
+    .map(({ spell }) => spell)
+    .filter((spell, index, list) => list.findIndex((entry) => entry.id === spell.id) === index)
+    .slice(0, 30)
+    .map((spell): GameAction => {
+      const text = `${spell.nome}. ${spell.execucao || ""}. ${spell.alcance || ""}. ${spell.alvo || ""}. ${spell.resistencia || ""}. ${spell.descricao || ""}`;
+      const formulas = formulasIn(text);
+      const healing = /cura|recupera|restaura/i.test(text) && !/dano/i.test((spell.descricao || "").split(".")[0]);
+      const inferred = inferActionFields(text);
+      const self = /pessoal/i.test(spell.alcance || "");
+      return {
+        id: `threat:${threat.id}:spell:${spell.id}`,
+        source: "threat", sourceId: threat.id, name: spell.nome, category: "spell",
+        kind: actionKindFromExecution(spell.execucao), effect: healing ? "heal" : formulas.length ? "damage" : "text",
+        target: self ? "self" : inferred.areaM ? "area" : healing ? "ally" : "enemy",
+        description: spell.descricao || `${spell.tipo || "Magia"} · ${spell.escola || ""}`,
+        pmCost: spell.custo || Math.max(1, spell.circulo * 2 - 1), rangeM: parseRangeM(spell.alcance, self ? 0 : 9),
+        damage: healing ? undefined : formulas[0], healing: healing ? formulas[0] || "1d8" : undefined,
+        ...inferred, color: /fogo|chama/i.test(text) ? "fire" : healing ? "gold" : "arcane",
+      };
+    });
+}
+
+function parseLoot(text?: string): string[] {
+  if (!text || /^(nenhum|metade|padr[aã]o|—|-)$/i.test(text.trim())) return text && !/nenhum|—|-/.test(text) ? [text] : [];
+  return text.split(/[,;]|\s+e\s+/i).map((part) => part.trim()).filter(Boolean);
+}
+
+/** Perícias treinadas da ameaça por nome minúsculo ("furtividade" → 5). */
+function skillBonusesOf(list?: Array<{ nome: string; valor?: string }>): Record<string, number> | undefined {
+  if (!Array.isArray(list) || !list.length) return undefined;
+  const pairs = list.filter((entry) => entry && typeof entry.nome === "string").map((entry) => [entry.nome.toLocaleLowerCase("pt-BR"), numberBonus(entry.valor)] as const);
+  return pairs.length ? Object.fromEntries(pairs) : undefined;
+}
+
+export function threatToTemplate(threat: CanonicalThreat): ThreatTemplate {
+  const attacks = (threat.ataques || []).map((attack, index) => actionForAttack(threat, attack, index));
+  const abilities = (threat.habilidades || []).map((ability, index) => actionForAbility(threat, ability, index)).filter((action): action is GameAction => Boolean(action));
+  // Ataques e habilidades são baratos; a busca de magias citadas no texto (varre o catálogo inteiro) só roda quando alguém pede as ações.
+  const actions: GameAction[] = [...attacks, ...abilities];
+  if (!actions.some((action) => action.category === "weapon")) {
+    actions.unshift({ id: `threat:${threat.id}:fallback`, name: "Ataque natural", category: "weapon", kind: "standard", effect: "damage", target: "enemy", description: `Ataque básico de ${threat.nome}.`, pmCost: 0, rangeM: 1.5, attackSkill: "luta", attackBonus: Math.max(0, numberBonus(threat.iniciativa)), damage: "1d6", crit: 20, critMultiplier: 2, color: "steel", source: "threat", sourceId: threat.id });
+  }
+  const primary = actions.find((action) => action.category === "weapon")!;
+  const ranged = primary.attackSkill === "pontaria";
+  const movement = Number(threat.deslocamento?.match(/\d+/)?.[0]) || 9;
+  const fly = Number(threat.deslocamento?.match(/voo\s*(\d+)/i)?.[1]) || undefined;
+  const burrow = Number(threat.deslocamento?.match(/escava[^\d]*(\d+)/i)?.[1]) || undefined;
+  let everything: GameAction[] | undefined;
+  const allActions = () => (everything ??= [...actions, ...mentionedSpellActions(threat)]);
+  return {
+    id: threat.id,
+    name: threat.nome,
+    title: `${threat.tipo || "Ameaça"} · ND ${threat.nd || "—"}`,
+    symbol: threat.nome.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase(),
+    // resolvedor unico em tactics/data/threatImages.ts
+    portrait: threatImage({ sprite: threat.customPortrait, portrait: threat.imagem }),
+    sprite: threatImage({ sprite: threat.customPortrait, portrait: threat.imagem }),
+    pv: threat.pv || 1,
+    pm: threat.pm || 0,
+    defense: threat.defesa || 10,
+    initiative: numberBonus(threat.iniciativa),
+    luta: ranged ? 0 : primary.attackBonus || numberBonus(threat.iniciativa),
+    pontaria: ranged ? primary.attackBonus || numberBonus(threat.iniciativa) : 0,
+    damage: primary.damage || "1d6",
+    crit: primary.crit || 20,
+    critMultiplier: primary.critMultiplier || 2,
+    attackType: ranged ? "ranged" : "melee",
+    rangeM: primary.rangeM,
+    movementM: movement,
+    flyM: fly,
+    burrowM: burrow,
+    level: Math.max(1, Math.round((threat.pv || 10) / 12)),
+    get spellDC() { return Math.max(10, ...allActions().map((action) => action.saveDC || 0)); },
+    actions: [],
+    get customActions() { return allActions(); },
+    actionCount: actions.length,
+    loot: parseLoot(threat.tesouro),
+    treasure: threat.tesouro || undefined,
+    fortitude: numberBonus(threat.fort),
+    reflexes: numberBonus(threat.ref),
+    will: numberBonus(threat.von),
+    attrs: threat.atributos,
+    skillBonuses: skillBonusesOf(threat.pericias),
+    size: parseSize(threat.tipo),
+    abilities: (Array.isArray(threat.habilidades) ? threat.habilidades : []).filter((ability) => ability && ability.nome).map((ability) => ({ name: ability.nome, type: ability.tipo, description: ability.desc })),
+    custom: Boolean(threat.custom),
+    hidden: Boolean(threat.hidden),
+  };
+}
+
+/** Bestiário principal (620) + ameaças das campanhas Duelo de Dragões, Guerra Artoniana e Breves Jornadas (244). */
+let officialThreats: ThreatTemplate[] | undefined;
+/** Montado na primeira vez que alguém pede o bestiário (antes rodava no carregamento da Mesa e travava o celular por segundos). */
+export function getOfficialThreats(): ThreatTemplate[] {
+  officialThreats ??= [...(threatsJson as unknown as CanonicalThreat[]), ...(campaignThreatsJson as unknown as CanonicalThreat[])].map(threatToTemplate);
+  return officialThreats;
+}
+
+export function actionsForThreat(threat: ThreatTemplate | CanonicalThreat): GameAction[] {
+  if ("name" in threat && "customActions" in threat) return threat.customActions || [];
+  return threatToTemplate(threat as CanonicalThreat).customActions || [];
+}
+
+export function parseThreatSave(value: string): SaveType | undefined {
+  return parseSave(value);
+}

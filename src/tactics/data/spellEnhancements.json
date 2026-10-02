@@ -1,0 +1,892 @@
+{
+ "bencao": {
+  "baseMods": {
+   "attack": 1,
+   "damage": 1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para 1 cadáver e a duração para 1 semana",
+    "altera": [
+     "alvo",
+     "duracao"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta os bônus em +1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "attack": 1,
+     "damage": 1
+    },
+    "limiteBonus": "circulo"
+   }
+  ],
+  "alvo": {
+   "lado": "aliados"
+  }
+ },
+ "perdicao": {
+  "baseMods": {
+   "attack": -1,
+   "damage": -1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta as penalidades em –1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "attack": -1,
+     "damage": -1
+    },
+    "limiteBonus": "circulo"
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "santuario": {
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "Você fica imperceptível a criaturas não inteligentes de um tipo escolhido (animal/construto/morto-vivo)",
+    "manual": true
+   },
+   {
+    "custo": 9,
+    "tipo": "extra",
+    "rotulo": "Também protege contra efeitos de área",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda para 3 lanças de energia (1d8+1 de essência cada, requer 2º círculo)",
+    "altera": [
+     "forma"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 4,
+    "tipo": "muda",
+    "rotulo": "Muda para 5 lanças de energia (requer 2º círculo)",
+    "altera": [
+     "forma"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 9,
+    "tipo": "muda",
+    "rotulo": "Muda para 10 lanças de energia (requer 4º círculo)",
+    "altera": [
+     "forma"
+    ],
+    "requerCirculo": 4,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "qualquer"
+  }
+ },
+ "arma-espiritual": {
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "A arma também te protege: +1 na Defesa",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus de Defesa acima em +1 (limitado ao círculo máximo que você lança; manual — depende do aprimoramento acima)",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda a duração pra sustentada; ação livre faz a arma atacar sozinha no alcance curto (requer 2º círculo)",
+    "altera": [
+     "duracao"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o dano para essência (requer 2º círculo)",
+    "altera": [
+     "dano"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o dano em +1d6 (manual — o dano automático é fixo em 2d6)",
+    "manual": true
+   },
+   {
+    "custo": 5,
+    "tipo": "extra",
+    "rotulo": "Invoca uma 2ª arma: contra-ataca duas vezes por rodada (requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ },
+ "arma-de-jade": {
+  "baseMods": {
+   "attack": 1,
+   "damage": 1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "A arma causa +1d4 de dano de eletricidade",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus de ataque e dano em +1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "attack": 1,
+     "damage": 1
+    },
+    "limiteBonus": "circulo"
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o dano do aprimoramento acima para +2d4 (só Devotos de Lin-Wu)",
+    "altera": [
+     "dano"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados",
+   "incluiSi": true
+  }
+ },
+ "arma-magica": {
+  "baseMods": {
+   "attack": 1,
+   "damage": 1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus em +1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "attack": 1,
+     "damage": 1
+    },
+    "limiteBonus": "circulo"
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "A arma causa +1d6 de dano de ácido, eletricidade, fogo ou frio (só uma vez)",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda o dano do aprimoramento acima para +2d6",
+    "altera": [
+     "dano"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados",
+   "incluiSi": true
+  }
+ },
+ "armadura-arcana": {
+  "baseMods": {
+   "defense": 5
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "muda",
+    "rotulo": "Muda a execução para reação: +5 na Defesa só contra o ataque sofrido (cumulativo)",
+    "altera": [
+     "execucao",
+     "efeito"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus na Defesa em +1",
+    "soma": {
+     "defense": 1
+    }
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda a duração para 1 dia",
+    "altera": [
+     "duracao"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ },
+ "arsenal-de-allihanna": {
+  "baseMods": {
+   "attack": 1,
+   "damage": 1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus em +1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "attack": 1,
+     "damage": 1
+    },
+    "limiteBonus": "circulo"
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "A arma (ou munição) fica coberta de espinhos",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para uma planta e o alcance para toque (requer 2º círculo, só Devotos de Allihanna/Dahllan)",
+    "altera": [
+     "alvo",
+     "alcance"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ },
+ "escudo-da-fe": {
+  "baseMods": {
+   "defense": 2
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "muda",
+    "rotulo": "Muda a execução para ação padrão, o alcance para toque e a duração para cena",
+    "altera": [
+     "execucao",
+     "alcance",
+     "duracao"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "Também dá camuflagem contra ataques à distância",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus na Defesa em +1",
+    "soma": {
+     "defense": 1
+    }
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda para ação padrão/toque/cena e transfere metade do dano sofrido pelo alvo para você (requer 2º círculo)",
+    "altera": [
+     "execucao",
+     "alcance",
+     "duracao",
+     "efeito"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda a duração para 1 dia (requer 2º círculo)",
+    "altera": [
+     "duracao"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados",
+   "incluiSi": true
+  }
+ },
+ "percepcao-rubra": {
+  "baseMods": {
+   "attack": 1,
+   "defense": 1
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "muda",
+    "rotulo": "Muda o alcance para curto e o alvo para 1 criatura",
+    "altera": [
+     "alcance",
+     "alvo"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus em +1 (limitado ao círculo máximo que você lança; só Devotos de Aharadak)",
+    "soma": {
+     "attack": 1,
+     "defense": 1
+    },
+    "limiteBonus": "circulo"
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ },
+ "protecao-de-tauron": {
+  "baseMods": {
+   "defense": 2
+  },
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "Suas habilidades de toque passam a alcançar o protegido em alcance curto",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus na Defesa em +2 (limitado ao dobro do círculo máximo que você lança; requer 2º círculo)",
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "Contra-ataque quando o protegido sofre ação hostil (só Minotauros)",
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados"
+  }
+ },
+ "couraca-de-allihanna": {
+  "baseMods": {
+   "defense": 2
+  },
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta a Defesa em +1 (limitado ao círculo máximo que você lança)",
+    "soma": {
+     "defense": 1
+    },
+    "limiteBonus": "circulo"
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "Suas magias de Evocação e Transmutação custam –1 PM",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "Você recebe +5 em Furtividade e pode se esconder mesmo sem camuflagem/cobertura",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "O alvo também dá o mesmo bônus em testes de resistência (requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "extra",
+    "rotulo": "Esporos: quem acerta ataque corpo a corpo em você testa Fortitude ou fica paralisado/lento (requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados",
+   "incluiSi": true
+  }
+ },
+ "vestimenta-da-fe": {
+  "baseMods": {
+   "defense": 2
+  },
+  "aprimoramentos": [
+   {
+    "custo": 3,
+    "tipo": "extra",
+    "rotulo": "O objeto também dá o mesmo bônus em testes de resistência (requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   },
+   {
+    "custo": 4,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o bônus em +1",
+    "soma": {
+     "defense": 1
+    }
+   },
+   {
+    "custo": 7,
+    "tipo": "extra",
+    "rotulo": "O objeto também dá resistência a dano 5 (requer 4º círculo)",
+    "requerCirculo": 4,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "aliados",
+   "incluiSi": true
+  }
+ },
+ "piscar": {
+  "baseMods": {
+   "attack": 2
+  },
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o alcance para toque e o alvo para 1 criatura voluntária (requer 3º círculo)",
+    "altera": [
+     "alcance",
+     "alvo"
+    ],
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ },
+ "hipnotismo": {
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "Quem passa na resistência não percebe que foi alvo de uma magia",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para animais ou humanoides escolhidos",
+    "altera": [
+     "alvo"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda a duração para sustentada",
+    "altera": [
+     "duracao"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "extra",
+    "rotulo": "Também afeta espíritos e monstros na área (requer 2º círculo)",
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 5,
+    "tipo": "extra",
+    "rotulo": "Também afeta construtos, espíritos, monstros e mortos-vivos na área (requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "sono": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Quem falhar fica exausto por 1d4+1 rodadas em vez de 1 (dado + modificador não automatizados)",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para qualquer criatura (não só humanoide)",
+    "altera": [
+     "alvo"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 5,
+    "tipo": "muda",
+    "rotulo": "Afeta todos os alvos válidos à escolha dentro do alcance",
+    "altera": [
+     "alvo"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "controlar-plantas": {
+  "aprimoramentos": [
+   {
+    "custo": 1,
+    "tipo": "muda",
+    "rotulo": "Muda a duração para instantânea: poda a vegetação em vez de enredar (anula o uso normal)",
+    "altera": [
+     "duracao",
+     "efeito"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 1,
+    "tipo": "extra",
+    "rotulo": "Quem falhar também fica imóvel",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda para se comunicar com plantas (sem teste de resistência)",
+    "altera": [
+     "alcance",
+     "alvo",
+     "efeito"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "amarras-etereas": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o número de alvos em +1",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o número de laços de um alvo em +1 (limitado ao círculo máximo que você lança)",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Cada laço destruído libera 1d8+1 de dano de essência no alvo (requer 3º círculo)",
+    "altera": [
+     "efeito"
+    ],
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "desespero-esmagador": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Em vez disso, as condições são Debilitado e Esmorecido",
+    "altera": [
+     "efeito"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Afeta qualquer tipo de criatura (não só humanoides)",
+    "altera": [
+     "alvo"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "extra",
+    "rotulo": "Quem falhar também fica Pasmo por 1 rodada (uma vez por cena, requer 3º círculo)",
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "sussurros-insanos": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o número de alvos em +1",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para 1 criatura (não só humanoide)",
+    "altera": [
+     "alvo"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 12,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para criaturas escolhidas (requer 5º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 5,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "despedacar": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o dano em +1d8+2",
+    "manual": true
+   },
+   {
+    "custo": 2,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para objeto mundano Médio (requer 2º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 2,
+    "manual": true
+   },
+   {
+    "custo": 5,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para objeto mundano Grande (requer 3º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 3,
+    "manual": true
+   },
+   {
+    "custo": 9,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para objeto mundano Enorme (requer 4º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 4,
+    "manual": true
+   },
+   {
+    "custo": 14,
+    "tipo": "muda",
+    "rotulo": "Muda o alvo para objeto mundano Colossal (requer 5º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 5,
+    "manual": true
+   },
+   {
+    "custo": 5,
+    "tipo": "muda",
+    "rotulo": "Muda para alcance pessoal e área de explosão de 6m de raio",
+    "altera": [
+     "alcance",
+     "alvo"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "sopro-das-uivantes": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o dano de frio em +2d6",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Aumenta o tamanho máximo das criaturas afetadas em uma categoria (requer 3º círculo)",
+    "altera": [
+     "alvo"
+    ],
+    "requerCirculo": 3,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "raio-solar": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o dano (ou cura) em +1d8 (+1d12 em mortos-vivos)",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Em vez do dano, cura 4d8 PV de criaturas vivas escolhidas na área",
+    "altera": [
+     "efeito"
+    ],
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "extra",
+    "rotulo": "Quem falhar fica cego por 1d4 rodadas em vez de ofuscado",
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "miasma-mefitico": {
+  "aprimoramentos": [
+   {
+    "custo": 2,
+    "tipo": "aumenta",
+    "rotulo": "Aumenta o dano em +1d6",
+    "manual": true
+   },
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda o tipo do dano para trevas",
+    "altera": [
+     "efeito"
+    ],
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "inimigos"
+  }
+ },
+ "campo-de-forca": {
+  "baseMods": {
+   "rd": 30
+  },
+  "aprimoramentos": [
+   {
+    "custo": 3,
+    "tipo": "muda",
+    "rotulo": "Muda a RD para 50 (requer 3º círculo)",
+    "altera": [
+     "efeito"
+    ],
+    "requerCirculo": 3,
+    "manual": true
+   },
+   {
+    "custo": 7,
+    "tipo": "muda",
+    "rotulo": "Muda a RD para 70 (requer 4º círculo)",
+    "altera": [
+     "efeito"
+    ],
+    "requerCirculo": 4,
+    "manual": true
+   }
+  ],
+  "alvo": {
+   "lado": "si"
+  }
+ }
+}

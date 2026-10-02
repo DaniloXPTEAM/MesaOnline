@@ -1,0 +1,306 @@
+/*
+ * Linhas de faixas do Jukebox. Mesma paleta do painel (ouro #D69B42, fundo
+ * var(--mx-120d0b), texto var(--mx-e7d3ae)); nada de fora entra aqui.
+ */
+.mesa-jukebox-presets { display:grid; gap:7px; }
+.mesa-jukebox-preset {
+  display:grid; grid-template-columns:minmax(0,1fr) 34px 34px; grid-template-rows:auto auto; gap:5px 6px;
+  padding:7px; border:1px solid rgba(214,155,66,.26); border-radius:7px; background:linear-gradient(180deg,var(--mx-1b1310),var(--mx-140e0c));
+}
+.mesa-jukebox-preset.is-current { border-color:#D69B42; box-shadow:inset 0 0 0 1px rgba(214,155,66,.28); background:linear-gradient(180deg,var(--mx-2a1c10),var(--mx-1b120b)); }
+.mesa-jukebox-preset input {
+  min-width:0; padding:6px 8px; border:1px solid rgba(214,155,66,.28); border-radius:5px;
+  background:var(--mx-120d0b); color:var(--mx-e7d3ae); font-size:11px;
+}
+.mesa-jukebox-preset input::placeholder { color:#6f665e; }
+.mesa-jukebox-preset .preset-name { grid-column:1; grid-row:1; font-weight:700; }
+.mesa-jukebox-preset .preset-link { grid-column:1; grid-row:2; }
+.mesa-jukebox-preset .preset-link[readonly] { color:#c9a25e; font-style:italic; }
+.mesa-jukebox-preset .preset-play {
+  grid-column:2; grid-row:1 / span 2; display:grid; place-items:center; border:1px solid #D69B42; border-radius:5px;
+  background:linear-gradient(180deg,var(--mx-3a2a22),var(--mx-241a16)); color:var(--mx-f3e3c4); cursor:pointer;
+}
+.mesa-jukebox-preset .preset-play:hover { background:linear-gradient(180deg,var(--mx-4a3428),var(--mx-2c2019)); }
+.mesa-jukebox-preset .preset-file, .mesa-jukebox-preset .preset-clear {
+  grid-column:3; display:grid; place-items:center; border:1px dashed rgba(214,155,66,.4); border-radius:5px;
+  color:#D69B42; cursor:pointer; background:transparent;
+}
+.mesa-jukebox-preset .preset-file { grid-row:1 / span 2; }
+.mesa-jukebox-preset .preset-file:has(~ .preset-clear) { grid-row:1; }
+.mesa-jukebox-preset .preset-clear { grid-row:2; border-style:solid; color:#e0847a; }
+.mesa-jukebox-preset .preset-file input { display:none; }
+.mesa-jukebox-preset svg { width:15px; height:15px; }
+
+/* Biblioteca de tokens: cartões com miniatura, nome e ações. Só paleta V5 (bronze e marrons escuros). */
+.mesa-token-library { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 4px 0 10px; }
+.mesa-token-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 10px; background: var(--mx-150e0a); }
+.mesa-token-card img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(217, 169, 76, .7); background: var(--mx-0d0706); }
+.mesa-token-card strong { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--mx-f2e4c8); font-size: 13px; }
+.mesa-token-card div { display: flex; gap: 6px; width: 100%; }
+.mesa-token-card button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; flex: 1; padding: 6px 8px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 7px; background: var(--mx-100b09); color: #f2d68f; font-size: 12px; cursor: pointer; }
+.mesa-token-card button:last-child { flex: 0 0 34px; }
+.mesa-token-card button:hover { background: rgba(217, 169, 76, .18); border-color: #d9a94c; }
+.mesa-token-card svg { width: 14px; height: 14px; }
+
+/*
+ * Legibilidade das gavetas: letra clara e nunca menor que 12px (antes 9 a 10px, em cinza escuro sobre marrom).
+ * Só sobe o tamanho e clareia a cor; a paleta continua a da Mesa (bronze e marrons).
+ */
+.mesa-skin-drawer-host .mesa-left-drawer > header strong { font-size: 16px; color: var(--mx-f6ead2); }
+.mesa-skin-drawer-host .mesa-left-drawer > header small { font-size: 12px; color: var(--mx-d3c2a3); }
+.mesa-skin-drawer-host .mesa-left-drawer > header > span { color: #f2d68f; border-color: rgba(242, 214, 143, .55); }
+.mesa-skin-drawer-host .mesa-left-drawer > header > span svg { width: 18px; height: 18px; stroke: #f2d68f; }
+.mesa-skin-drawer-host .mesa-drawer-scroll { font-size: 13px; color: var(--mx-e6d8bd); }
+.mesa-skin-drawer-host .mesa-block-empty,
+.mesa-skin-drawer-host .mesa-module-note { font-size: 12.5px; line-height: 1.5; color: var(--mx-d3c3a4); }
+.mesa-skin-drawer-host .mesa-panel-section h4,
+.mesa-skin-drawer-host .mesa-block h4 { font-size: 12px; letter-spacing: .1em; color: #e0bd78; }
+.mesa-skin-drawer-host .mesa-panel-field span,
+.mesa-skin-drawer-host .mesa-grid-select { font-size: 12.5px; color: var(--mx-d3c3a4); }
+.mesa-skin-drawer-host small { font-size: 12px; color: var(--mx-cdbb9c); }
+.mesa-skin-drawer-host input,
+.mesa-skin-drawer-host select,
+.mesa-skin-drawer-host textarea { font-size: 13px; color: var(--mx-f2e6cf); }
+.mesa-skin-drawer-host .mesa-panel-actions button,
+.mesa-skin-drawer-host .mesa-panel-actions label { font-size: 13px; }
+.mesa-skin-drawer-host .mesa-automation-list button strong { font-size: 14px; color: var(--mx-f4e8ce); }
+.mesa-skin-drawer-host .mesa-automation-list button { min-height: 52px; }
+.mesa-skin-drawer-host .mesa-macro-row button strong { font-size: 14px; color: var(--mx-f4e8ce); }
+.mesa-skin-drawer-host .mesa-roster-list button strong { font-size: 14px; }
+.mesa-skin-drawer-host .mesa-roster-list button small { font-size: 12px; }
+
+/* Tokens: o botão de importar fica no topo (as ações das gavetas costumam ficar ancoradas embaixo). */
+.mesa-token-stack > .mesa-panel-actions { margin-top: 0; }
+
+/* Música: Parar, Tocar/Pausar e Loop com nome, e a busca de sons do Freesound recolhida. */
+.mesa-audio-controls-labeled { display: flex; gap: 6px; }
+.mesa-audio-controls-labeled button { display: inline-flex; flex: 1; align-items: center; justify-content: center; gap: 6px; padding: 9px 8px; font-size: 13px; }
+.mesa-audio-controls-labeled svg { width: 16px; height: 16px; }
+.mesa-audio-controls-labeled button.active { border-color: #f2d68f; background: rgba(217, 169, 76, .28); color: var(--mx-fff1c9); }
+.mesa-freesound { border: 1px solid rgba(214, 155, 66, .28); border-radius: 8px; padding: 6px 9px; }
+.mesa-freesound summary { cursor: pointer; font-size: 13px; color: #e0bd78; }
+.mesa-freesound[open] summary { margin-bottom: 8px; }
+
+/* Ferramentas do mapa (Objetos): nome e dica no tamanho das perícias do painel. */
+.mesa-skin-drawer-host .mesa-automation-list button small { font-size: 12px; }
+
+/* Os cantos ornamentados da gaveta não podem cobrir texto: folga no fim da lista e ao lado do botão de fechar. */
+.mesa-skin-drawer-host .mesa-drawer-scroll { padding-bottom: 56px; }
+.mesa-skin-drawer-host .mesa-left-drawer > header { padding-right: 44px; }
+/* Os ornamentos dos cantos ficam ATRÁS do texto da gaveta (antes ficavam por cima e escondiam a última linha). */
+.mesa-skin-drawer-host .mesa-left-drawer::before,
+.mesa-skin-drawer-host .mesa-left-drawer::after { z-index: 0; pointer-events: none; }
+.mesa-skin-drawer-host .mesa-left-drawer > header,
+.mesa-skin-drawer-host .mesa-left-drawer > .mesa-drawer-scroll { position: relative; z-index: 1; }
+.mesa-skin-drawer-host .mesa-panel-stack { padding-bottom: 44px; }
+
+/* Encontro aleatório (Ferramenta de mestre): resultado, cartões de ameaça e quantidade. Só paleta V5. */
+.mesa-encounter-result { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding: 10px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 10px; background: var(--mx-150e0a); }
+.mesa-encounter-result > small { color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-encounter-result > strong { color: var(--mx-f6ead2); font-size: 15px; line-height: 1.35; }
+.mesa-encounter-result > em { color: #c9a25e; font-size: 12px; font-style: normal; }
+.mesa-encounter-threat { display: grid; grid-template-columns: 38px minmax(0, 1fr) 52px auto; align-items: center; gap: 8px; padding: 6px; border: 1px solid rgba(217, 169, 76, .3); border-radius: 8px; background: var(--mx-100b09); }
+.mesa-encounter-threat strong { display: block; color: var(--mx-f2e6cf); font-size: 13.5px; }
+.mesa-encounter-threat small { display: block; color: var(--mx-cdbb9c); font-size: 11.5px; }
+.mesa-encounter-threat input { width: 52px; padding: 5px; text-align: center; border: 1px solid rgba(217, 169, 76, .45); border-radius: 6px; background: var(--mx-0d0806); color: var(--mx-f4e8ce); }
+.mesa-encounter-threat button { display: inline-flex; align-items: center; gap: 4px; padding: 6px 9px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 7px; background: var(--mx-1b120d); color: #f2d68f; font-size: 12px; cursor: pointer; }
+.mesa-encounter-threat button:hover { background: rgba(217, 169, 76, .2); border-color: #d9a94c; }
+.mesa-encounter-threat svg { width: 14px; height: 14px; }
+
+/* Bestiário e janela de personagens: a moldura escura já existe em index.css (.dialog, .threat-item, .character-library-item); aqui só o que faltava, na paleta do Bestiário. */
+.library-search input { height: 40px; font-size: 12px; }
+.threat-item-copy em { display: block; margin-top: 4px; color: #6f9a72; font-size: 8px; font-style: normal; }
+.threat-dialog-grid > section:first-child, .character-dialog-grid > section:first-child { min-width: 0; }
+.threat-list, .character-library-list { max-height: min(62vh, 560px); }
+.character-library-item { grid-template-columns: 48px 1fr auto; border-color: var(--mx-342a27); background: #121111; }
+.character-avatar { border-color: #6f2527; background: radial-gradient(circle at 35% 30%, #9e3635, #2a1114 70%); color: #f4d0bd; }
+.character-library-item strong { color: var(--mx-d7c6b1); }
+.character-library-item small { color: #7e6d64; }
+.character-library-item i { color: #a05042; }
+.character-import-panel { border-color: var(--mx-382d29); background: rgba(12, 11, 11, .56); }
+.character-import-panel .sheet-portrait-drop { border: 1px dashed #754938; background: #111010; color: #96613f; }
+.character-import-panel .sheet-json-drop { border-color: #754938; background: #111010; color: #c49565; }
+.character-import-panel .sheet-json-drop strong { color: var(--mx-d8c7af); }
+.character-import-panel .sheet-json-drop small, .character-import-panel .sheet-portrait-drop small { color: #8d7e70; font-size: 8px; }
+.sheet-data-note { border-left-color: #8f5d35; background: rgba(113, 61, 30, .15); }
+.sheet-data-note strong { color: #c39a69; }
+.sheet-data-note span { color: #977353; }
+.empty-sheet-preview { border-color: var(--mx-3a2c27); color: #786a61; }
+/* Ambiente: luzes configuráveis. */
+.mesa-light-row { display: grid; gap: 6px; padding: 8px; margin-bottom: 6px; border: 1px solid rgba(217, 169, 76, .35); border-radius: 8px; background: rgba(120, 80, 40, .08); }
+.mesa-light-row label { display: grid; gap: 3px; font-size: 12px; }
+.mesa-light-row input[type="color"] { width: 100%; height: 26px; padding: 0; border: 1px solid rgba(217, 169, 76, .5); background: transparent; }
+/* Elenco: adicionar (só mestre), barra do token selecionado e itens/baús/tesouros. Paleta V5. */
+.mesa-roster-add { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; }
+.mesa-roster-add button, .mesa-remove-token, .mesa-more-toggle { min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 8px; border: 1px solid rgba(217, 169, 76, .6); border-radius: 8px; background: rgba(120, 80, 40, .14); color: var(--mx-f0d9a5); font-size: 12px; font-weight: 700; cursor: pointer; }
+.mesa-roster-add button:hover, .mesa-more-toggle:hover { background: rgba(217, 169, 76, .28); border-color: #d9a94c; }
+.mesa-roster-add svg, .mesa-remove-token svg { width: 15px; height: 15px; }
+.mesa-remove-token { color: #e8a090; border-color: rgba(224, 87, 79, .55); background: transparent; }
+.mesa-remove-token:hover { background: rgba(224, 87, 79, .16); }
+.mesa-selected-bar { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 8px; background: rgba(120, 80, 40, .1); }
+.mesa-selected-bar strong { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--mx-f4e8d0); font: 700 14px Georgia, serif; }
+.mesa-selected-bar button { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid rgba(217, 169, 76, .6); border-radius: 7px; background: transparent; color: var(--mx-f0d9a5); cursor: pointer; }
+.mesa-selected-bar button:hover { background: rgba(217, 169, 76, .28); }
+.mesa-selected-bar svg { width: 16px; height: 16px; }
+.mesa-trigger-builder { display: grid; gap: 8px; margin-top: 8px; }
+/* Editor de baú/item dentro do Elenco: campos em grade e caixas de marcar na mesma linha do rótulo. */
+.mesa-scene-objects .mesa-grid-settings-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: end; }
+.mesa-scene-objects .mesa-grid-settings-row label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--mx-d8c7af); letter-spacing: 0; text-transform: none; }
+.mesa-scene-objects .mesa-grid-settings-row label:has(input[type="checkbox"]) { flex-direction: row; align-items: center; gap: 8px; }
+.mesa-scene-objects .mesa-grid-settings-row select, .mesa-scene-objects .mesa-grid-settings-row input:not([type="checkbox"]) { height: 30px; padding: 0 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 6px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 12px; }
+.mesa-scene-objects textarea { width: 100%; padding: 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 6px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 12px; }
+.mesa-scene-objects .mesa-panel-field { color: var(--mx-d8c7af) !important; font-size: 12px; }
+.mesa-token-link { width: 100%; max-width: 100%; height: 28px; padding: 0 6px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 6px; background: var(--mx-100c0b); color: var(--mx-d8c7af); font-size: 11px; }
+.mesa-token-json { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%; height: 26px; border: 1px dashed rgba(217, 169, 76, .5); border-radius: 6px; color: #c9a25e; font-size: 11px; cursor: pointer; }
+.mesa-token-json:hover { background: rgba(217, 169, 76, .14); }
+.mesa-token-json svg { width: 13px; height: 13px; }
+.mesa-token-json input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.mesa-object-description { display: block; margin-top: 4px; max-width: 360px; font-size: 12px; font-style: normal; line-height: 1.35; color: var(--mx-cdbb9c); }
+/* Mídia no palco: sobreposição por cima do mapa (paleta V5) e biblioteca na gaveta Cenas e mapas. */
+.mesa-stage-media { position: absolute; inset: 0; z-index: 60; display: flex; flex-direction: column; background: rgba(var(--mxr-10-6-5), .92); }
+.mesa-stage-media > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(217, 169, 76, .45); color: var(--mx-f2e4c8); font: 700 15px Georgia, serif; }
+.mesa-stage-media > header > span { display: inline-flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mesa-stage-media > header button { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(217, 169, 76, .7); border-radius: 8px; background: rgba(120, 80, 40, .2); color: var(--mx-f0d9a5); cursor: pointer; }
+.mesa-stage-media > header button:hover { background: rgba(224, 87, 79, .3); border-color: #e0574f; }
+.mesa-stage-media-body { flex: 1; min-height: 0; display: grid; place-items: center; padding: 14px; position: relative; color: var(--mx-cdbb9c); }
+.mesa-stage-media-body img, .mesa-stage-media-body video { max-width: 100%; max-height: 100%; object-fit: contain; border: 2px solid rgba(217, 169, 76, .6); border-radius: 8px; background: #000; }
+.mesa-stage-media-tap { position: absolute; display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border: 1px solid #d9a94c; border-radius: 10px; background: rgba(var(--mxr-60-32-14), .92); color: var(--mx-f6e3b0); font-size: 14px; cursor: pointer; }
+.mesa-stage-media-now { display: grid; gap: 6px; padding: 8px; border: 1px solid rgba(224, 87, 79, .55); border-radius: 8px; background: rgba(120, 30, 24, .18); color: var(--mx-f2e4c8); font-size: 13px; }
+.mesa-stage-media-now button { min-height: 30px; border: 1px solid rgba(224, 87, 79, .7); border-radius: 7px; background: transparent; color: #f2b3a8; cursor: pointer; }
+.mesa-media-library { display: grid; gap: 6px; }
+.mesa-media-card { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto auto; align-items: center; gap: 8px; padding: 6px; border: 1px solid rgba(217, 169, 76, .35); border-radius: 8px; background: var(--mx-150e0a); }
+.mesa-media-card strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--mx-f2e4c8); font-size: 13px; }
+.mesa-media-card small { display: block; color: var(--mx-cdbb9c); font-size: 11.5px; }
+.mesa-media-card button { display: inline-flex; align-items: center; gap: 4px; padding: 6px 9px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 7px; background: var(--mx-1b120d); color: #f2d68f; font-size: 12px; cursor: pointer; }
+.mesa-media-card button:hover { background: rgba(217, 169, 76, .2); }
+.mesa-media-card svg { width: 14px; height: 14px; }
+.mesa-media-thumb { width: 48px; height: 48px; display: grid; place-items: center; overflow: hidden; border-radius: 8px; border: 1px solid rgba(217, 169, 76, .5); background: var(--mx-0d0706); color: #c9a25e; }
+.mesa-media-thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* Tokens: o "+" fixo na caixa e a janela Novo token (paleta V5; só a organização das funções veio do VTT antigo). */
+.mesa-token-add { min-height: 168px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px dashed rgba(217, 169, 76, .65); border-radius: 10px; background: rgba(120, 80, 40, .1); color: var(--mx-f0d9a5); font-size: 13px; font-weight: 700; cursor: pointer; }
+.mesa-token-add:hover { background: rgba(217, 169, 76, .2); border-color: #d9a94c; }
+.mesa-token-add svg { width: 34px; height: 34px; }
+.mesa-token-portrait { padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 50%; }
+.mesa-token-portrait:hover img { border-color: var(--mx-f0d9a5); }
+.mesa-token-linked { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #c9a25e; font-size: 11px; }
+.mesa-token-dialog { width: min(780px, 96vw); }
+.mesa-token-dialog-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--mx-3a2c27); }
+.mesa-token-dialog-head small { color: #ac6a3d; font-size: 11px; font-weight: 900; letter-spacing: .2em; }
+.mesa-token-dialog-head h2 { margin: 4px 0 0; color: var(--mx-f0e1cb); font: 500 24px Georgia, serif; }
+.mesa-token-dialog-head button { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--mx-3c302b); background: var(--mx-121010); color: #c9a25e; cursor: pointer; }
+.mesa-token-dialog-grid { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 20px; padding-top: 16px; }
+.mesa-token-frame { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.mesa-token-mold { position: relative; overflow: hidden; border-radius: 50%; border: 3px solid #d9a94c; background: var(--mx-0d0706); box-shadow: 0 0 0 4px rgba(217, 169, 76, .18), inset 0 0 22px rgba(0, 0, 0, .7); user-select: none; }
+.mesa-token-mold img { pointer-events: none; }
+.mesa-token-mold-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 30px; text-align: center; color: var(--mx-cdbb9c); font-size: 13px; }
+.mesa-token-mold-empty svg { width: 30px; height: 30px; color: #c9a25e; }
+.mesa-token-zoom { display: grid; gap: 4px; width: 100%; color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-token-pick { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 34px; border: 1px solid rgba(217, 169, 76, .6); border-radius: 8px; background: rgba(120, 80, 40, .16); color: var(--mx-f0d9a5); font-size: 13px; font-weight: 700; cursor: pointer; }
+.mesa-token-pick:hover { background: rgba(217, 169, 76, .26); }
+.mesa-token-pick input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.mesa-token-fields { display: grid; gap: 10px; align-content: start; }
+.mesa-token-fields label { display: grid; gap: 4px; color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-token-fields input, .mesa-token-fields select, .mesa-token-fields textarea { min-width: 0; padding: 7px 9px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 7px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 13px; }
+.mesa-token-fields input[type="color"] { height: 34px; padding: 2px; }
+.mesa-token-fields fieldset { display: grid; gap: 8px; margin: 0; padding: 10px; border: 1px solid rgba(217, 169, 76, .35); border-radius: 9px; }
+.mesa-token-fields legend { padding: 0 6px; color: #c9a25e; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.mesa-token-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.mesa-token-error { margin: 12px 0 0; color: #f2b3a8; font-size: 13px; }
+.mesa-token-dialog-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--mx-3a2c27); }
+.mesa-token-dialog-foot button { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 8px; background: var(--mx-1b120d); color: #f2d68f; font-size: 13px; cursor: pointer; }
+.mesa-token-dialog-foot button.primary { background: linear-gradient(180deg, #8e3b24, #552219); border-color: #d2923c; color: var(--mx-ffeacd); font-weight: 700; }
+.mesa-token-dialog-foot button:disabled { opacity: .5; cursor: wait; }
+@media (max-width: 720px) { .mesa-token-dialog-grid { grid-template-columns: 1fr; } }
+.mesa-token-card button.mesa-token-portrait { flex: none; padding: 0; border: 0; background: transparent; }
+.mesa-token-dialog .mesa-module-note { font-size: 12px; line-height: 1.4; color: var(--mx-cdbb9c); }
+.mesa-token-dialog input[type="range"] { accent-color: #d9a94c; }
+/* Tokens: cartões um pouco menores que antes (duas colunas, miniatura de 56 px). O Elenco não usa estas regras. */
+.mesa-token-library { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.mesa-token-library .mesa-token-add { min-height: 0; aspect-ratio: auto; height: 100%; min-height: 120px; gap: 6px; font-size: 12px; }
+.mesa-token-library .mesa-token-add svg { width: 28px; height: 28px; }
+.mesa-token-library .mesa-token-card { padding: 7px; gap: 5px; }
+.mesa-token-library .mesa-token-card img { width: 56px; height: 56px; }
+.mesa-token-library .mesa-token-card strong { font-size: 12px; }
+.mesa-token-library .mesa-token-card button { padding: 5px 6px; font-size: 12px; }
+.mesa-token-library .mesa-token-card button:last-child { flex: 0 0 30px; }
+.mesa-token-json-pick { position: relative; display: block; padding: 8px; border: 1px dashed rgba(217, 169, 76, .5); border-radius: 8px; color: #c9a25e; font-size: 12px; text-align: center; cursor: pointer; }
+.mesa-token-json-pick:hover { background: rgba(217, 169, 76, .12); }
+.mesa-token-json-pick input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+/* Cenas e mapas: formulário de adicionar (nova cena / importar mapa) e rótulos de seleção legíveis. */
+.mesa-add-map { display: grid; gap: 8px; padding: 10px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 9px; background: rgba(120, 80, 40, .1); }
+.mesa-add-map .mesa-grid-select, .mesa-map-library .mesa-grid-select { display: grid; gap: 4px; color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-add-map input, .mesa-add-map select, .mesa-map-library select { min-width: 0; height: 32px; padding: 0 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 7px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 13px; }
+.mesa-add-cancel { height: 28px; border: 0; background: transparent; color: #c9a25e; font-size: 12px; cursor: pointer; text-decoration: underline; }
+/* Meus personagens (ícone do perfil). */
+.mesa-char-dialog { width: min(560px, 96vw); }
+.mesa-char-head { display: flex; align-items: center; gap: 12px; }
+.mesa-char-head small { color: #ac6a3d; font-size: 11px; font-weight: 900; letter-spacing: .2em; }
+.mesa-char-head h2 { margin: 2px 0 0; color: var(--mx-f0e1cb); font: 500 22px Georgia, serif; }
+.mesa-master-badge { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 2px solid #f2d68f; background: radial-gradient(circle at 35% 30%, var(--mx-3a2410), var(--mx-140a06)); color: #f6d27a; font: 700 28px Georgia, serif; box-shadow: 0 0 14px rgba(246, 210, 122, .35); }
+.mesa-char-list { display: grid; gap: 6px; max-height: min(52vh, 420px); overflow: auto; padding: 4px 2px; }
+.mesa-char-row { display: grid; grid-template-columns: minmax(0, 1fr) 38px; gap: 6px; }
+.mesa-char-pick { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px; border: 1px solid rgba(217, 169, 76, .4); border-radius: 9px; background: var(--mx-150e0a); color: var(--mx-f2e4c8); text-align: left; cursor: pointer; }
+.mesa-char-pick:hover, .mesa-char-row.current .mesa-char-pick { border-color: #d9a94c; background: rgba(217, 169, 76, .14); }
+.mesa-char-avatar { width: 46px; height: 46px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; border: 2px solid rgba(217, 169, 76, .7); background: var(--mx-0d0706); color: #c9a25e; }
+.mesa-char-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.mesa-char-copy strong, .mesa-char-copy small, .mesa-char-copy i { display: block; }
+.mesa-char-copy strong { font-size: 15px; }
+.mesa-char-copy small { color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-char-copy i { color: #c9a25e; font-size: 12px; font-style: normal; }
+.mesa-char-pick em { padding: 3px 9px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 999px; color: var(--mx-f0d9a5); font-size: 12px; font-style: normal; }
+.mesa-char-sheet { display: grid; place-items: center; border: 1px solid rgba(217, 169, 76, .4); border-radius: 9px; background: transparent; color: #c9a25e; cursor: pointer; }
+.mesa-char-sheet:hover { background: rgba(217, 169, 76, .16); }
+/* Viagem: duração, mapa do encontro, contadores e o botão de passar o dia juntos. */
+.mesa-travel-plan { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.mesa-travel-plan label { display: grid; gap: 4px; color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-travel-plan input, .mesa-panel-section .mesa-grid-select select { min-width: 0; height: 32px; padding: 0 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 7px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 13px; }
+.mesa-travel-plan button { height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border: 1px solid rgba(217, 169, 76, .6); border-radius: 7px; background: rgba(120, 80, 40, .2); color: var(--mx-f0d9a5); font-size: 13px; cursor: pointer; }
+.mesa-travel-pass { margin-top: 4px !important; grid-template-columns: 1fr !important; }
+/* Encontro da viagem no palco. */
+.mesa-travel-event { position: absolute; inset: 0; z-index: 58; display: grid; place-items: center; padding: 20px; background: rgba(var(--mxr-10-6-5), .84); }
+.mesa-travel-event-card { width: min(560px, 100%); display: grid; gap: 10px; padding: 22px; border: 2px solid #d9a94c; border-radius: 14px; background: linear-gradient(180deg, var(--mx-2a1710), var(--mx-140a06)); box-shadow: 0 0 40px rgba(0, 0, 0, .7); color: var(--mx-f2e4c8); }
+.mesa-travel-event-card small { color: #c9a25e; font-size: 12px; letter-spacing: .2em; font-weight: 800; }
+.mesa-travel-event-card h2 { display: flex; align-items: center; gap: 10px; margin: 0; font: 700 26px Georgia, serif; color: var(--mx-f6e3b0); }
+.mesa-travel-event-card p { margin: 0; font-size: 17px; line-height: 1.45; }
+.mesa-travel-event-card em { color: var(--mx-cdbb9c); font-size: 12px; font-style: normal; }
+.mesa-travel-event-master { display: grid; gap: 10px; padding-top: 10px; border-top: 1px solid rgba(217, 169, 76, .35); }
+.mesa-travel-event-master label { display: grid; gap: 4px; color: var(--mx-cdbb9c); font-size: 12px; }
+.mesa-travel-event-master select { height: 34px; padding: 0 8px; border: 1px solid rgba(217, 169, 76, .45); border-radius: 7px; background: var(--mx-100c0b); color: var(--mx-f4e8d0); font-size: 14px; }
+.mesa-travel-event-master > div { display: flex; gap: 8px; justify-content: flex-end; }
+.mesa-travel-event-master button { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 8px; background: var(--mx-1b120d); color: #f2d68f; font-size: 13px; cursor: pointer; }
+.mesa-travel-event-master button.primary { background: linear-gradient(180deg, #8e3b24, #552219); border-color: #d2923c; color: var(--mx-ffeacd); font-weight: 700; }
+.mesa-roster-add-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; }
+.mesa-trigger-item { border: 1px solid rgba(217, 169, 76, .35); border-radius: 8px; background: var(--mx-150e0a); margin-bottom: 6px; }
+.mesa-trigger-head { width: 100%; display: flex; align-items: center; gap: 8px; padding: 8px; border: 0; background: transparent; color: var(--mx-f2e4c8); text-align: left; cursor: pointer; }
+.mesa-trigger-head svg { width: 16px; height: 16px; color: #c9a25e; flex: none; }
+.mesa-trigger-head strong, .mesa-trigger-head small { display: block; }
+.mesa-trigger-head strong { font-size: 13px; }
+.mesa-trigger-head small { color: var(--mx-cdbb9c); font-size: 11.5px; }
+.mesa-trigger-body { display: grid; gap: 8px; padding: 0 8px 8px; }
+
+/* ---- Clima: Tormenta (relâmpagos vermelhos) e Tempestade (relâmpagos brancos + chuva) ---- */
+.next-weather.storm { background: linear-gradient(rgba(14, 22, 34, .25), rgba(14, 22, 34, .4)); animation: none; }
+.next-weather.storm i { top: -15%; width: 2px; height: 38px; background: linear-gradient(transparent, rgba(215, 232, 245, .95)); transform: rotate(16deg); animation: nexusRain .8s linear infinite; }
+.next-weather.tormenta { background: radial-gradient(120% 90% at 50% 0%, rgba(120, 8, 18, .2), rgba(40, 0, 6, .38)); animation: none; }
+.next-weather-flash { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; opacity: 0; animation: weatherLightning 7s ease-in-out infinite; }
+.next-weather-flash.storm { background: linear-gradient(180deg, #ffffff, rgba(214, 228, 255, .8)); animation-duration: 6s; }
+.next-weather-flash.tormenta { background: linear-gradient(180deg, #ff5a48, rgba(224, 34, 44, .78)); animation-duration: 5s; }
+@keyframes weatherLightning {
+  0%, 8%, 14%, 52%, 100% { opacity: 0; }
+  9% { opacity: .75; } 10% { opacity: .1; } 11.5% { opacity: .95; } 13% { opacity: .15; }
+  53% { opacity: .55; } 54% { opacity: 0; } 55.5% { opacity: .7; } 57% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .next-weather-flash { animation: none; opacity: 0; } }
+
+/* ---- Ping: o círculo se expande e some (antes era um anel parado) ---- */
+.next-ping { animation: nextPing 1.5s ease-out forwards; box-shadow: 0 0 14px rgba(240, 189, 88, .8); }
+.next-ping::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 3px solid #f0bd58; animation: nextPing 1.5s ease-out .22s forwards; opacity: 0; }
+@keyframes nextPing { 0% { transform: scale(.2); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+
+/* Token de item/baú com imagem própria */
+.mesa-object-image-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.mesa-object-image-row .mesa-mini-portrait { width: 44px; height: 44px; flex: none; }
+[data-map-stage] .next-object .next-object-image { width: 38px; height: 38px; object-fit: cover; border-radius: 9px; display: block; }
+
+/* Montaria cujo tamanho não serve: continua na lista (o motivo aparece ao passar o mouse e ao clicar), só mais apagada. */
+.mesa-panel-actions button.mesa-mount-blocked { opacity: .55; }

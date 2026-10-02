@@ -1,0 +1,72 @@
+{
+  "algorithm": "sha256",
+  "description": "Frozen supplied Mesa Online mask. Update only by explicit user replacement of the visual baseline.",
+  "files": {
+    "src/components/mesaSkin/MesaSkinActionDialog.tsx": "3a570279c72b6deeeb183e2d8bab81af013824010a2b48ab1ff4734b00de70f1",
+    "src/components/mesaSkin/MesaSkinTable.tsx": "49536a093ac043dc30ddc8581b352a7db972b3fca52b26cfa45b294a56a8b18f",
+    "src/components/mesaSkin/actionDialog.css": "a04ad0bc5f42653368c7ee39517b72e24c3a753f7efa24120e87e20fcef09051",
+    "src/components/mesaSkin/appearance.css": "733ee8588c6567c80d06b8b0950d4c295a12daad81e2f1b93fb6fc18b4d3e8b4",
+    "src/components/mesaSkin/assets.ts": "d437e6222520f35cf15b9d75ded08a86f5a62944f82a0adc885f28dbd6622db9",
+    "src/components/mesaSkin/components/ArmadaTitle.tsx": "9ed6f437ed6189115478625d0df2a885d3034837ff2b4895954133769135ed34",
+    "src/components/mesaSkin/components/Chrome.tsx": "8cdf525c5a79dff254c329c12265ebb3d03167b8288641b734a1526c9ff99271",
+    "src/components/mesaSkin/components/ExpandedArt.tsx": "3ca3e5fd639a5fece2d525fb378a84a6e272f744897b2dbe9b836638ddab55d1",
+    "src/components/mesaSkin/components/MapArea.tsx": "c63e500b7d587a6877f10040736270e7ab3b4ac503ded38ee3478402c1ce85a5",
+    "src/components/mesaSkin/components/Panels.tsx": "0d9d8c0d907c64fb4ed36f7a962776dbca1283deacb06bf3d55033457314427b",
+    "src/components/mesaSkin/components/ui.tsx": "194f984149d37a5bf49d44d6081e7fbe4f952629701ca842c8bb2bd39979382e",
+    "src/components/mesaSkin/config.ts": "a638e3b47186ba3bf3891020b27ca0cce90f6f97dc7490b0fbc3090510a80cd7",
+    "src/components/mesaSkin/data.ts": "a7834090bf4c23b1ab657e242843048396a1b211e867fb9872f5a07fe5de6b10",
+    "src/components/mesaSkin/images.d.ts": "785c1cbd0e260ff3b85f99a919e8a42f75bff3ce556fbc95eed9cf67acb9e9f3",
+    "src/components/mesaSkin/images/map-bridge.jpg": "a1b2086dac40fb4ee9af9c25fd848b5c1dcfcbcaefe3184392395d9736364148",
+    "src/components/mesaSkin/images/map-harbor.jpg": "9606b90f999e1eacbc04b882f2c8cb3aeffecbb320a876db7bec72ea2519ddf5",
+    "src/components/mesaSkin/images/portrait-brom.jpg": "277ef5b1e16c690169ca14c7b338858799f92f3d3dd8f68967f19dd708f2c003",
+    "src/components/mesaSkin/images/portrait-foe.jpg": "d3dff46f148bc3c3d11a6a0ec27a8ac5cfd1ed72cd18d7e8d7826e81cd00acdd",
+    "src/components/mesaSkin/images/portrait-kael.jpg": "9c0bc665351a64a7887a4a32ab225877d80dde6627dfd0dd15ff679211ec473c",
+    "src/components/mesaSkin/images/portrait-seraphine.jpg": "3ac7c89c9f1995c8ec74943a5c1a9d94fae19d08cd3ab0a7d84ffc393f87a3f3",
+    "src/components/mesaSkin/runtime.ts": "0c89cf6590178d5ecc3156649c9508bc28c5ac8ddc172b582a6dbfc458b7e3c5",
+    "src/index.css": "93c769a0009c58d988f0db08cd98db95e8b4ec19585e106f63accd126a58ec57",
+    "src/mesa-theme.css": "2b0ed3908c3c91ca5c377e848539851a53cc6f7d8aec2aa838cba32f8092891f"
+  },
+  "dataBindingUpdate": {
+    "date": "2026-09-29",
+    "authorizedBy": "Instrução explícita do usuário: a trava é exclusivamente visual; ligar os dados reais à máscara é permitido.",
+    "justification": "A máscara exibia dados fixos (GROUP, INITIATIVE, SAVES, SKILLS, EQUIPMENT, HOTKEYS, ROLLS, tokens do mapa, campanha/cena). Passou a ler o BOARD/combatState via contexto (mesaSkin/runtime.ts, preenchido por src/components/mesa/skinRuntime.ts). Markup, classes Tailwind, CSS, imagens e layout permanecem idênticos; só o texto/valores/listas passaram a vir do estado real.",
+    "visualEquivalence": "Mesmo DOM e classes. Diferenças de conteúdo: emblema \"P 7\" agora mostra \"D <defesa>\"; grade de movimento decorativa fixa removida (não representava células reais); listas vazias quando não há dados reais.",
+    "changedFiles": [
+      "src/components/mesaSkin/MesaSkinTable.tsx",
+      "src/components/mesaSkin/components/Chrome.tsx",
+      "src/components/mesaSkin/components/MapArea.tsx",
+      "src/components/mesaSkin/components/Panels.tsx",
+      "src/components/mesaSkin/components/ui.tsx",
+      "src/components/mesaSkin/data.ts",
+      "src/components/mesaSkin/runtime.ts"
+    ],
+    "labelChanges": [
+      "Menu lateral: \"Inventário\" → \"Compêndio\" (o item já abria o Compêndio; só o texto foi corrigido, ícone e posição intactos).",
+      "Diálogo Condição: adicionada a condição \"Amedrontado\" à lista de condições sugeridas (texto de dados, sem mudança de layout).",
+      "Diálogo Condição: lista com as 35 condições do catálogo (+ Amedrontado) e descrição de cada uma em dica (title) ao passar o mouse. Sem mudança de layout.",
+      "Diálogo de combate (interação V3, só comportamento, mesmas classes e botões): alvo filtrado por alcance e linha de efeito com distância, confirmação da ação, reações também fora do turno, escolha de vários alvos, aprimoramentos de magia e \"Executar turno da IA\" (linha no estilo do botão Mover, só para o Mestre no turno de ameaça).",
+      "Etapa de aprimoramentos e botão principal do diálogo: acabamento só com a paleta e classes da máscara (rolagem fina dourada `scroll-tray`, estilos em src/combatDialogExtras.css).",
+      "Botão do canto do palco (Enquadrar): agora foca no token selecionado ou, sem seleção, no mapa inteiro (comando de câmera \"focus\"). Mesmo botão, mesmo ícone e posição.",
+      "Comportamento sem mudar aparência: Action aceita arrastar/soltar (hotkeys: arrastar item da mochila para o slot, botão direito limpa); token do mapa ganha data-token-id (arrastar o próprio token)."
+    ],
+    "stage": {
+      "date": "2026-09-29",
+      "description": "MapArea passou a hospedar o palco real do VTT (src/components/mesa/MapStage.tsx) no lugar da arte figurativa: mapa carregado pelo Mestre, grade, câmera, fog, luzes, paredes, terreno, clima, régua, ping e selos de condição. Escala do canto derivada da grade. Nenhum controle novo, posição ou CSS alterado; zoom/enquadrar existentes controlam a câmera.",
+      "changedFiles": [
+        "src/components/mesaSkin/components/MapArea.tsx",
+        "src/components/mesaSkin/runtime.ts"
+      ]
+    },
+    "visualRestore": {
+      "date": "2026-09-29",
+      "note": "Reversão a pedido do usuário: restaurados o emblema \"P\" original, vinheta, brasas, brilho e clarões de tocha sobre o palco; removidos os selos de condição e a moldura do tabuleiro. Grade, destaque de célula e marcas de terreno ficam invisíveis (CSS escopado em src/mesaSkinDrawerHost.css) fora da ferramenta de terreno. Selos de condição sobre o token restaurados por autorização expressa do usuário (elemento pequeno, só aparece com condição ativa)."
+    }
+  },
+  "fase1Exploracao": {
+    "data": "2026-09-30",
+    "autorizacao": "O usuário liberou mudar layout e botões da exploração, só nos itens da lista acordada (cabeçalho com botão Combate, barra esquerda, painel do personagem, d20 e mesinha de rolagem). Cores, fundos e imagens não mudaram.",
+    "arquivosAlterados": [
+      "src/components/mesaSkin/components/MapArea.tsx"
+    ]
+  }
+}

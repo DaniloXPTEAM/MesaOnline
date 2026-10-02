@@ -1,0 +1,105 @@
+/*
+ * Posição da gaveta (submenu) dentro da mesa: encostada ao menu lateral, sobre
+ * o palco, abaixo da barra superior. Fica fora da máscara protegida — só define
+ * onde a gaveta abre; a aparência dela continua sendo a de mesa-theme.css.
+ */
+.mesa-skin-drawer-host {
+  position: fixed;
+  z-index: 65;
+  top: 62px;
+  bottom: 0;
+  left: 76px;
+  width: min(372px, calc(100vw - 76px));
+  /* 13px: a gaveta fica DENTRO da borda dourada do palco, sem cobri-la */
+  padding: 18px 0 18px 18px;
+  display: flex;
+  pointer-events: none;
+}
+.mesa-skin-drawer-host > .mesa-left-drawer {
+  pointer-events: auto;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+@media (min-width: 1024px) {
+  .mesa-skin-drawer-host { left: 104px; width: min(372px, calc(100vw - 104px)); }
+}
+
+/*
+ * Palco do mapa: não traz nenhum visual do VTT/ModernRPG. A grade, o destaque
+ * de célula e as marcas de terreno ficam invisíveis; só aparecem enquanto a
+ * ferramenta de terreno estiver ativa. Fog, luz, parede, porta e clima só
+ * aparecem quando existem no estado da cena.
+ */
+[data-map-stage] .next-grid > button { border-color: transparent; }
+[data-map-stage] .next-grid > button:hover { border-color: transparent; background: transparent; }
+[data-map-stage]:not([data-tool="terrain"]) .next-grid > button[class*="terrain-"] { background: transparent; box-shadow: none; }
+[data-map-stage]:not([data-tool="terrain"]) .next-grid > button.has-elevation { box-shadow: none; }
+[data-map-stage]:not([data-tool="terrain"]) .next-grid > button.has-elevation::after { content: none; }
+[data-map-stage][data-tool="terrain"] .next-grid > button { border-color: rgba(var(--mxr-246-238-219), .12); }
+
+/*
+ * Prévia de movimento: usa as cores azuis que a própria máscara já tem no
+ * desenho de movimento (#7cc4ff, #bfe4ff, rgba(96,176,244)).
+ */
+[data-map-stage] .next-grid > button.move-reach { background: rgba(96, 176, 244, .13); box-shadow: inset 0 0 0 1px rgba(124, 196, 255, .28); }
+[data-map-stage] .next-grid > button.aura-cell { background: rgba(217, 169, 76, .12); box-shadow: inset 0 0 0 1px rgba(217, 169, 76, .28); }
+[data-map-stage] .next-grid > button.move-pending { background: rgba(255, 214, 110, .22); box-shadow: inset 0 0 0 1px rgba(255, 226, 150, .75); animation: move-goal 2.6s ease-in-out infinite; }
+
+/* Baú: tremer quando trancado e cartões do conteúdo ao abrir. Só paleta V5 (bronze e marrons escuros). */
+@keyframes object-shake { 0%, 100% { translate: -50% -62%; } 20% { translate: calc(-50% - 5px) -62%; } 40% { translate: calc(-50% + 5px) -62%; } 60% { translate: calc(-50% - 4px) -62%; } 80% { translate: calc(-50% + 3px) -62%; } }
+[data-map-stage] .next-object.object-shake { animation: object-shake .6s ease-in-out; }
+.chest-contents { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 2px 10px; }
+.chest-contents span { padding: 5px 9px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 7px; background: var(--mx-100b09); color: #f2d68f; font-size: 12px; }
+.chest-reveal { position: fixed; left: 50%; top: 22%; z-index: 60; translate: -50% 0; max-width: min(560px, 90vw); padding: 14px 18px; border: 1px solid rgba(217, 169, 76, .7); border-radius: 12px; background: rgba(var(--mxr-16-11-9), .95); box-shadow: 0 14px 40px rgba(0, 0, 0, .6); text-align: center; pointer-events: none; }
+.chest-reveal strong { display: block; margin-bottom: 10px; color: #d9a94c; letter-spacing: .06em; }
+.chest-reveal div { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.chest-reveal span { padding: 6px 11px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 8px; background: var(--mx-1b120d); color: #f2d68f; font-size: 13px; }
+@keyframes door-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+[data-map-stage] .next-grid > button.door-shake { animation: door-shake .6s ease-in-out; }
+.chest-contents button { padding: 5px 9px; border: 1px solid rgba(217, 169, 76, .55); border-radius: 7px; background: var(--mx-100b09); color: #f2d68f; font-size: 12px; cursor: pointer; }
+.chest-contents button.selected { background: rgba(217, 169, 76, .28); border-color: #d9a94c; color: var(--mx-fff1c9); }
+
+/*
+ * Medição da régua: o número da distância precisa ser lido de longe, então fica bem grande
+ * (o triplo do tamanho antigo), dentro do palco, no topo e ao centro; o rótulo junto ao
+ * ponto também. Mesmas cores de antes (bronze sobre marrom escuro).
+ */
+[data-map-stage] .next-measure { left: 50% !important; top: 14px !important; translate: -50% 0; gap: 8px !important; padding: 5px 13px !important; font-size: 18px !important; font-weight: 800; }
+[data-map-stage] .next-measure svg { width: 18px !important; height: 18px !important; }
+[data-map-stage] .mesa-measure-tag { padding: 4px 9px; font-size: 16px; }
+/* Linha da régua entre os pontos A e B (o desenho usa <polyline>, que o tema não estilizava). */
+[data-map-stage] .mesa-measure-layer polyline { stroke: #E96A2D; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 7; filter: drop-shadow(0 0 4px rgba(233, 106, 45, .75)); }
+
+/* Caminho do movimento: linha amarela até o destino, com X na chegada; o token desliza em vez de aparecer no lugar. */
+.mesa-move-path { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 13; pointer-events: none; overflow: visible; }
+.mesa-move-path polyline { stroke: rgba(255, 224, 140, .85); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 6 7; filter: drop-shadow(0 0 3px rgba(255, 200, 80, .5)); }
+.mesa-move-path path { stroke: rgba(255, 150, 120, .8); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 3px rgba(255, 130, 90, .5)); }
+[data-map-stage] [data-token-id] { transition: left var(--walk-ms, 1000ms) cubic-bezier(.45, .05, .35, 1), top var(--walk-ms, 1000ms) cubic-bezier(.45, .05, .35, 1); }
+
+/* Cursor: seta comum no mapa; a mira só aparece quando uma ferramenta de clique no mapa está ativa. */
+[data-map-stage] .next-grid > button { cursor: default; }
+[data-map-stage]:not([data-tool="select"]):not([data-tool="pan"]) .next-grid > button { cursor: crosshair; }
+
+/* Áreas de efeito (círculo, cone, linha): brasa animada, tanto na pré-visualização quanto depois de colocadas. */
+@keyframes area-ember { 0%, 100% { background-position: 0% 0%; filter: brightness(1); } 50% { background-position: 100% 100%; filter: brightness(1.35); } }
+[data-map-stage] .next-grid > button.shape,
+[data-map-stage] .next-grid > button.shape-preview {
+  background: linear-gradient(135deg, rgba(255, 96, 28, .55), rgba(255, 196, 64, .5), rgba(226, 52, 20, .55));
+  background-size: 220% 220%;
+  box-shadow: inset 0 0 0 1px rgba(255, 206, 110, .75), 0 0 10px rgba(255, 120, 30, .6);
+  animation: area-ember 1.6s ease-in-out infinite;
+}
+[data-map-stage] .next-grid > button.shape-preview { opacity: .75; }
+@media (prefers-reduced-motion: reduce) { [data-map-stage] .next-grid > button.shape, [data-map-stage] .next-grid > button.shape-preview { animation: none; } }
+
+/* Destino do movimento: brilho dourado bem leve, pulsando devagar. */
+@keyframes move-goal { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
+@media (prefers-reduced-motion: reduce) { [data-map-stage] .next-grid > button.move-pending { animation: none; } }
+
+/* Bloco que o token vai ocupar no destino (criatura Grande, Enorme, Colossal): contorno suave. */
+.mesa-move-ghost { position: absolute; z-index: 12; pointer-events: none; border: 2px dashed rgba(255, 224, 140, .8); background: rgba(255, 214, 110, .1); box-shadow: 0 0 12px rgba(255, 200, 80, .35); border-radius: 6px; }

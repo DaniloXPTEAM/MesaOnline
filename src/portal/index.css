@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Capa em livro 3D: sem caixa de fundo — o livro "flutua" sobre a página,
+   com lombada aparente do lado esquerdo, como um livro físico de verdade. */
+.book-3d { perspective: 900px; background: transparent; }
+.book-3d-cover { position: relative; width: 84%; height: 92%; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; color: #fff; text-align: center; background: linear-gradient(135deg, #b92b3a, #5b1821 72%); border-radius: 3px; overflow: hidden; box-shadow: 5px 8px 18px rgba(43,38,31,.35), 0 2px 4px rgba(43,38,31,.2); transform: rotateY(-18deg) rotateX(2deg); transform-origin: left center; transition: transform .25s ease, box-shadow .25s ease; }
+.book-3d-cover::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 9%; background: linear-gradient(90deg, rgba(0,0,0,.5), rgba(0,0,0,0)); pointer-events: none; }
+.book-3d-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-3d:hover .book-3d-cover { transform: rotateY(-7deg) rotateX(0); box-shadow: 9px 13px 24px rgba(43,38,31,.4), 0 2px 4px rgba(43,38,31,.2); }
+
+@theme {
+  --font-serif: "Cinzel", Georgia, Cambria, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Paleta pergaminho — Tormenta 20 Online */
+  --color-od-bg: #f5f2eb;
+  --color-od-page: #faf8f3;
+  --color-od-card: #ffffff;
+  --color-od-border: #ded7c6;
+  --color-od-border-light: #ece6d8;
+  --color-od-border-dark: #b8ad96;
+
+  --color-od-red: #b92b3a;
+  --color-od-red-hover: #9c1f2d;
+  --color-od-red-dark: #7a1520;
+  --color-od-red-light: #fbebee;
+
+  --color-od-green: #2b8a3e;
+  --color-od-green-hover: #237032;
+  --color-od-green-light: #ebfbee;
+
+  --color-od-blue: #1c7ed6;
+  --color-od-blue-light: #e7f5ff;
+
+  --color-od-gold: #c2892c;
+  --color-od-gold-light: #fef9ed;
+
+  --color-od-text: #2b261f;
+  --color-od-text-muted: #726859;
+  --color-od-text-subtle: #9c9180;
+}
+
+html, body {
+  background-color: var(--color-od-bg);
+  color: var(--color-od-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sublinhado pontilhado: passe o mouse para ver a fórmula */
+.od-dotted {
+  text-decoration: underline dotted;
+  text-decoration-color: #b5aba0;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+.od-dotted:hover {
+  text-decoration-color: var(--color-od-red);
+}
+
+/* Barras de rolagem */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #eae4d5;
+}
+::-webkit-scrollbar-thumb {
+  background: #c2b7a0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-od-red);
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: #ffffff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .od-card-print {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}

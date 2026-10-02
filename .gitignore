@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.vite/
+*.log
+*.zip
+*.ZIP
+.DS_Store
+server/data/
+
+# Segredos e configuração local (nunca publicar)
+.env.local
+.env.admin.local
+.env*.local

@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Ajustes da linguagem visual da ficha oficial (Tormenta 20 Online) */
+body {
+  background: #f5f2eb;
+  color: #2b261f;
+}
+
+.od-card-print {
+  break-inside: avoid;
+}
+
+.od-dotted {
+  border-bottom: 2px dotted #b92b3a;
+  padding-bottom: 1px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

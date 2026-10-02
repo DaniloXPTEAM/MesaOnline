@@ -1,0 +1,28 @@
+/*
+ * Acabamento das etapas novas do diálogo de combate (aprimoramentos, vários
+ * alvos, botão principal). Só usa a paleta e as classes que a máscara V5 já
+ * tem: bronze #d9a94c, ouro #c9a25e, marrons var(--mx-150e0a)/var(--mx-241708)/var(--mx-3a210e).
+ */
+.mesa-skin-dialog-primary { display:block; width:100%; margin-top:13px; padding:9px 12px; border:1px solid #d9a94c; border-radius:8px; background:linear-gradient(180deg,var(--mx-4a2a0c),var(--mx-3a210e)); color:var(--mx-f4dfaa); font-weight:700; letter-spacing:.02em; cursor:pointer; }
+.mesa-skin-dialog-primary:hover:not(:disabled) { background:linear-gradient(180deg,#5a3410,var(--mx-452709)); color:var(--mx-fff0c8); }
+.mesa-skin-dialog-primary:disabled { opacity:.45; cursor:not-allowed; }
+.mesa-skin-dialog-back:disabled { opacity:.45; cursor:not-allowed; }
+.mesa-skin-dialog-back { display:block; }
+
+/* alvo escolhido (vários alvos) */
+.mesa-skin-target-picker > div > button.selected { border-color:#d9a94c; background:var(--mx-2c1a0b); box-shadow:inset 0 0 0 1px rgba(217,169,76,.35); }
+
+/* etapa de aprimoramentos */
+.mesa-skin-cast > div:first-of-type > button { grid-template-columns:38px 1fr auto; align-items:start; padding:9px; }
+.mesa-skin-cast .cast-count { width:38px; height:38px; font-family:var(--font-display); font-size:15px; font-weight:700; color:#e0b25c; border:1px solid rgba(217,169,76,.44); background:var(--mx-241708); }
+.mesa-skin-cast > div > button.selected .cast-count { color:#f2d68f; border-color:#d9a94c; background:var(--mx-4a2a0c); }
+.mesa-skin-cast .cast-text { display:block; font-size:12.5px; font-weight:500; line-height:1.4; color:var(--mx-eadcc5); }
+.mesa-skin-cast .cast-text i { display:block; margin-top:3px; font-size:10.5px; font-style:normal; color:#c9a25e; }
+.mesa-skin-cast .cast-cost { align-self:start; padding:2px 8px; border:1px solid rgba(217,169,76,.5); border-radius:6px; background:var(--mx-1d1209); color:var(--mx-f0d9a5); font-size:10.5px; font-weight:700; white-space:nowrap; }
+.mesa-skin-cast > div > button.selected .cast-cost { background:var(--mx-4a2a0c); border-color:#d9a94c; }
+
+/* resumo: custo, alvos e PM */
+.mesa-skin-cast .cast-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; padding:10px 12px; border:1px solid rgba(122,82,39,.55); border-radius:10px; background:var(--mx-100a08); }
+.mesa-skin-cast .cast-summary p { margin:0; text-align:center; }
+.mesa-skin-cast .cast-summary strong { font-family:var(--font-display); font-size:18px; color:#f2d68f; }
+.mesa-skin-cast .cast-error { padding:8px 10px; border:1px solid rgba(224,87,79,.6); border-radius:8px; background:var(--mx-2a0d0c); color:#ffb4a8; }
